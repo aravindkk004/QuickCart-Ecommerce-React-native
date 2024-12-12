@@ -36,13 +36,13 @@ export default function CartItem() {
     >
       <Image
         source={{
-          uri: "https://img.freepik.com/free-photo/tv-screen-wooden-table-front-lake-with-sunset_1142-56610.jpg",
+          uri: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D",
         }}
         style={{ height: 100, width: 100, borderRadius: 10, marginRight: 10 }}
       />
       <Ionicons
         name="trash-outline"
-        size={25}
+        size={20}
         color="black"
         style={{
           position: "absolute",

@@ -1,8 +1,12 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import React from "react";
 import ItemCard from "./ItemCard";
+import { useNavigation, useRouter } from "expo-router";
+import products from "./../../products";
 
 export default function TopPicks() {
+  const router = useRouter();
+  const navigation = useNavigation();
   const datas = [
     {
       id: 1,
@@ -91,20 +95,30 @@ export default function TopPicks() {
       <Text style={{ fontFamily: "outfit-medium", fontSize: 22 }}>
         Top Picks For You
       </Text>
-      <View style={{width: "100%" }}>
+      <View style={{ width: "100%" }}>
         <FlatList
           key={key}
           keyExtractor={(item, index) => index.toString()}
           style={{
             marginTop: 10,
-            marginBottom: 50
+            marginBottom: 50,
           }}
           numColumns={2}
           data={datas}
           renderItem={({ item, index }) => (
-            <View style={{ width: "50%" }}>
-              <ItemCard details={item} />
-            </View>
+            <TouchableOpacity
+              style={{ width: "50%" }}
+              onPress={() =>
+                router.push({
+                  pathname: "./../productDetailsPage",
+                  params: { details: JSON.stringify(item) },
+                })
+              }
+            >
+              <View style={{ width: "100%" }}>
+                <ItemCard details={item} />
+              </View>
+            </TouchableOpacity>
           )}
           showsVerticalScrollIndicator={false}
         />

@@ -1,7 +1,7 @@
 const product = [
   {
     id: 1,
-    imgUrl: "https://static.toiimg.com/thumb/msid-100449799,width-1280,height-720,resizemode-4/100449799.jpg",
+    imgUrl: "ac.png",
     category: "Home Appliances",
     price: "30,000",
     rating: "4.7",
@@ -19,7 +19,7 @@ const product = [
   },
   {
     id: 3,
-    imgUrl: "https://assets2.razerzone.com/images/pnx.assets/eacc83c0643ed2da8c9e98968f8aa215/headset-landingpg-500x500-barracuda.jpg",
+    imgUrl: "headset.png",
     category: "Electronics",
     price: "870",
     rating: "4.9",
@@ -28,7 +28,7 @@ const product = [
   },
   {
     id: 4,
-    imgUrl: "https://m.media-amazon.com/images/I/71aARXewm6L.jpg",
+    imgUrl: "keyboard.png",
     category: "Electronics",
     price: "450",
     rating: "4.2",
@@ -64,7 +64,7 @@ const product = [
   },
   {
     id: 8,
-    imgUrl: "https://i03.appmifile.com/410_item_in/06/08/2024/223ecdf04f38615af71bfaef7d90c3b8.png?thumb=1&w=400&q=85",
+    imgUrl: "redmi.png",
     category: "Electroics",
     price: "30,999",
     rating: "4.6",
@@ -73,7 +73,7 @@ const product = [
   },
   {
     id: 9,
-    imgUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D",
+    imgUrl: "nike.png",
     category: "Travel",
     price: "2,875",
     rating: "3.9",
