@@ -106,6 +106,7 @@ export default function TopPicks() {
               <ItemCard details={item} />
             </View>
           )}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     </View>
