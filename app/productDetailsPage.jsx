@@ -1,13 +1,38 @@
-import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+} from "react-native";
 import React, { useState } from "react";
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "@/constants/Colors";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5"; 
+import Entypo from "@expo/vector-icons/Entypo";
+import Feather from "@expo/vector-icons/Feather";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+
+const imageMap = {
+  "ac.png": require("./../assets/bg-removed/ac.png"),
+  "bag.png": require("./../assets/bg-removed/bag.png"),
+  "headset.png": require("./../assets/bg-removed/headset.png"),
+  "keyboard.png": require("./../assets/bg-removed/keyboard.png"),
+  "laptop.png": require("./../assets/bg-removed/laptop.png"),
+  "mouse.png": require("./../assets/bg-removed/mouse.png"),
+  "iphone.png": require("./../assets/bg-removed/iphone.png"),
+  "redmi.png": require("./../assets/bg-removed/redmi.png"),
+  "nike.png": require("./../assets/bg-removed/shoe.png"),
+  "tv.png": require("./../assets/bg-removed/tv.png"),
+};
 
 export default function productDetailsPage() {
+  const [like, setLike] = useState(true); 
   const { details } = useGlobalSearchParams();
+  const {height, width} = useWindowDimensions();
   const product = details ? JSON.parse(details) : {};
   const router = useRouter();
   console.log(product.imgUrl);
@@ -17,16 +42,6 @@ export default function productDetailsPage() {
   const [price, setPrice] = useState(initialPrice);
   const formatPrice = (price) => {
     return new Intl.NumberFormat("en-IN").format(price);
-  };
-  const increaseCount = () => {
-    setCount(count + 1);
-    setPrice(initialPrice * (count + 1));
-  };
-  const decreaseCount = () => {
-    if (count > 0) {
-      setCount(count - 1);
-      setPrice(initialPrice * (count - 1));
-    }
   };
 
   return (
@@ -47,6 +62,15 @@ export default function productDetailsPage() {
       >
         <Ionicons name="chevron-back" size={24} color="black" />
       </TouchableOpacity>
+      <TouchableOpacity
+        style={{ position: "absolute", margin: 20, zIndex: 10, right: 10, top: 5 }}
+      >
+        {like ? (
+          <FontAwesome name="heart" size={28} color="red" />
+        ) : (
+          <Feather name="heart" size={28} color="black" />
+        )}
+      </TouchableOpacity>
       <View
         style={{
           backgroundColor: Colors.SECONDARY,
@@ -57,9 +81,9 @@ export default function productDetailsPage() {
         }}
       >
         <Image
-          source={require("./../assets/bg-removed/shoe.png")}
+          source={imageMap[product.imgUrl]}
           style={{ height: 300, width: "90%", borderRadius: 10 }}
-          resizeMode="cover"
+          resizeMode="contain"
         />
       </View>
       <View
@@ -74,7 +98,7 @@ export default function productDetailsPage() {
           {product.title}
         </Text>
         <Text
-          style={{ fontFamily: "outfit", fontSize: 23, color: Colors.GRAY }}
+          style={{ fontFamily: "outfit", fontSize: 18, color: Colors.GRAY }}
         >
           {product.category}
         </Text>
@@ -84,14 +108,12 @@ export default function productDetailsPage() {
           Description
         </Text>
         <Text
-          style={{ fontFamily: "outfit", color: Colors.GRAY, fontSize: 17 }}
+          style={{ fontFamily: "outfit", fontSize: height*0.022 }}
         >
-          Experience the perfect blend of style and performance with Nike's
-          iconic shoes, crafted to deliver unparalleled comfort and timeless
-          design. From cutting-edge technology to sleek aesthetics, these
-          sneakers are built for both functionality and fashion.
+          {product.description}
         </Text>
 
+        {/* price section  */}
         <View
           style={{
             flexDirection: "row",
@@ -101,7 +123,7 @@ export default function productDetailsPage() {
         >
           <Text
             style={{
-              color: "black",
+              color: Colors.PRIMARY,
               fontFamily: "outfit-bold",
               fontSize: 30,
               marginTop: 10,
@@ -110,53 +132,51 @@ export default function productDetailsPage() {
             $ {formatPrice(price)}
           </Text>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-evenly",
-            marginVertical: 13,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 10,
-              borderWidth: 1,
-              borderColor: Colors.GRAY,
-              padding: 3,
-              borderRadius: 5,
-            }}
-          >
-            <AntDesign
-              name="minus"
-              size={24}
-              color="black"
-              onPress={decreaseCount}
-            />{" "}
-            <Text style={{ marginHorizontal: 10 }}>{count}</Text>{" "}
-            <Ionicons
-              name="add"
-              size={24}
-              color="black"
-              onPress={increaseCount}
-            />
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 10,
-              backgroundColor: Colors.GRAY,
-              padding: 10,
-              borderRadius: 10,
-            }}
-          >
-            <Text>Add to Cart</Text>
-            <FontAwesome5 name="shopping-cart" size={24} color="black" />
+
+        {/* rating section  */}
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+          <FontAwesome name="star" size={24} color="#FDD663" />
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text
+              style={{ fontFamily: "outfit", fontSize: 20, marginRight: 5 }}
+            >
+              {product.rating}
+            </Text>
+            <Text
+              style={{ fontFamily: "outfit", color: Colors.GRAY, fontSize: 18 }}
+            >
+              ({product.ratingCount})
+            </Text>
           </View>
         </View>
+
+        {/* features section  */}
+        <View style={{ marginBottom: 20 }}>
+          <Text
+            style={{
+              fontFamily: "outfit-medium",
+              fontSize: 23,
+              marginVertical: 10,
+            }}
+          >
+            Features
+          </Text>
+          {product.features.map((feature) => (
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Entypo
+                name="dot-single"
+                size={24}
+                color="black"
+                style={{ width: 24 }}
+              />
+              <Text style={{ fontFamily: "outfit", fontSize: height*0.024 }}>
+                {feature}
+              </Text>
+            </View>
+          ))}
+        </View>
+
+        {/* buy now button  */}
         <View
           style={{
             flexDirection: "row",
@@ -170,21 +190,40 @@ export default function productDetailsPage() {
               backgroundColor: Colors.PRIMARY,
               padding: 10,
               borderRadius: 10,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <Text
               style={{
                 fontFamily: "outfit-medium",
-                fontSize: 22,
+                fontSize: height*0.025,
                 textAlign: "center",
                 color: Colors.WHITE,
+                width: 120,
               }}
             >
-              Buy Now
+              Add to Cart
             </Text>
+            <FontAwesome5 name="shopping-cart" size={20} color={Colors.WHITE} />
           </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  ratingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  ratingText: {
+    marginLeft: 5,
+    fontSize: 16,
+    color: "black",
+  },
+});

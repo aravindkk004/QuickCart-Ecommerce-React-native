@@ -1,10 +1,24 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, useWindowDimensions } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+const imageMap = {
+  "ac.png": require("./../../assets/bg-removed/ac.png"),
+  "bag.png": require("./../../assets/bg-removed/bag.png"),
+  "headset.png": require("./../../assets/bg-removed/headset.png"),
+  "keyboard.png": require("./../../assets/bg-removed/keyboard.png"),
+  "laptop.png": require("./../../assets/bg-removed/laptop.png"),
+  "mouse.png": require("./../../assets/bg-removed/mouse.png"),
+  "iphone.png": require("./../../assets/bg-removed/iphone.png"),
+  "redmi.png": require("./../../assets/bg-removed/redmi.png"),
+  "nike.png": require("./../../assets/bg-removed/shoe.png"),
+  "tv.png": require("./../../assets/bg-removed/tv.png"),
+};
+
 export default function ItemCard({ details }) {
   const [liked, setLiked] = useState(true);
+  const{height, width} = useWindowDimensions();
   return (
     <View
       style={{
@@ -19,28 +33,28 @@ export default function ItemCard({ details }) {
     >
       <View>
         <Image
-          source={{ uri: details.imgUrl }}
+          source={imageMap[details.imgUrl]}
           style={{ height: 100, width: "100%", borderRadius: 20 }}
           resizeMode="contain"
         />
         {liked ? (
           <Ionicons
             name="heart"
-            size={20}
+            size={23}
             color="red"
-            style={{ position: "absolute", left: '86%', top: 0 }}
+            style={{ position: "absolute", left: '80%', top: 0 }}
           />
         ) : (
           <Ionicons
             name="heart-outline"
-            size={20}
+            size={23}
             color="black"
             style={{ position: "absolute", left: '86%', top: 0 }}
           />
         )}
       </View>
       <View style={{ marginTop: 8 }}>
-        <Text style={{ fontFamily: "outfit-medium", fontSize: 15 }}>
+        <Text style={{ fontFamily: "outfit-medium", fontSize: height*0.018 }}>
           {details.title}
         </Text>
       </View>
@@ -54,7 +68,7 @@ export default function ItemCard({ details }) {
         <Text
           style={{
             fontFamily: "outfit-bold",
-            fontSize: 15,
+            fontSize: height*0.023,
             color: Colors.PRIMARY,
           }}
         >

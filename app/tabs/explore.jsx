@@ -4,15 +4,18 @@ import {
   FlatList,
   TextInput,
   useWindowDimensions,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import product from "../../products";
 import ItemCard from "../../components/HomePageComponents/ItemCard";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "@/constants/Colors";
+import { useRouter } from "expo-router";
 
 export default function Explore() {
   const key = `flatlist-columns-${2}`;
+  const router = useRouter();
   const { width } = useWindowDimensions();
   const [searchQuery, setSearchQuery] = useState("");
   const [data, setData] = useState([
@@ -81,9 +84,17 @@ export default function Explore() {
           numColumns={2}
           data={product}
           renderItem={({ item, index }) => (
-            <View style={{ width: "50%" }}>
+            <TouchableOpacity
+              style={{ width: "50%" }}
+              onPress={() =>
+                router.push({
+                  pathname: "./../productDetailsPage",
+                  params: { details: JSON.stringify(item) },
+                })
+              }
+            >
               <ItemCard details={item} />
-            </View>
+            </TouchableOpacity>
           )}
           showsVerticalScrollIndicator={false}
         />

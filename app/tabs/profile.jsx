@@ -1,12 +1,41 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { Colors } from "@/constants/Colors";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { useRouter } from "expo-router";
 
 export default function Profile() {
+  const router = useRouter();
+  const details = [
+    {
+      id: 9,
+      imgUrl: "nike.png",
+      category: "Travel Accessories",
+      price: "2,875",
+      rating: "3.9",
+      ratingCount: "8,268",
+      description:
+        "Run, jump, and conquer terrains with Nike Sports Shoe, crafted for performance and comfort. Its lightweight design ensures effortless movement all day long.",
+      title: "Nike Sports Shoe",
+      features: [
+        "Breathable mesh upper",
+        "Cushioned sole for comfort",
+        "Lightweight design",
+        "Slip-resistant grip",
+      ],
+      tags: [
+        "travel accessories",
+        "sports shoes",
+        "comfortable",
+        "performance",
+        "nike",
+        "running",
+      ],
+    },
+  ];
   return (
     <View>
       <View
@@ -46,7 +75,15 @@ export default function Profile() {
       </View>
 
       <View style={{ padding: 20 }}>
-        <View style={styles.box}>
+        <TouchableOpacity
+          style={styles.box}
+          onPress={() =>
+            router.push({
+              pathname: "../OrdersPage",
+              params: { details: JSON.stringify(details) },
+            })
+          }
+        >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Fontisto
               name="shopping-package"
@@ -61,7 +98,7 @@ export default function Profile() {
             </Text>
           </View>
           <AntDesign name="arrowright" size={24} color="black" />
-        </View>
+        </TouchableOpacity>
         <View style={styles.box}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <FontAwesome5

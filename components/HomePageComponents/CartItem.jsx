@@ -1,13 +1,16 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity, useWindowDimensions } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { useRouter } from "expo-router";
 
 export default function CartItem() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
+  const router = useRouter();
   const initialPrice = 4780;
   const [price, setPrice] = useState(initialPrice);
+  const {height, width} = useWindowDimensions();
   const formatPrice = (price) => {
     return new Intl.NumberFormat("en-IN").format(price);
   };
@@ -55,18 +58,27 @@ export default function CartItem() {
         }}
       />
       <View>
-        <Text style={{ fontFamily: "outfit-bold", fontSize: 23 }}>
-          Nike Shoe
-        </Text>
+        <TouchableOpacity
+          // onPress={() =>
+          //   router.push({
+          //     pathname: "./../productDetailsPage",
+          //     params: { details: JSON.stringify(item) },
+          //   })
+          // }
+        >
+          <Text style={{ fontFamily: "outfit-bold", fontSize: height*0.027 }}>
+            Nike Shoe
+          </Text>
+        </TouchableOpacity>
         <Text
-          style={{ fontFamily: "outfit", color: Colors.GRAY, fontSize: 20 }}
+          style={{ fontFamily: "outfit", color: Colors.GRAY, fontSize: height*0.022 }}
         >
           Shoe
         </Text>
         <Text
           style={{
             fontFamily: "outfit-bold",
-            fontSize: 23,
+            fontSize: height*0.028,
             marginTop: 5,
             color: Colors.PRIMARY,
           }}
